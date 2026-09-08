@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stock Quest - 16-Bit Retro RPG Trading on Base</title>
-  <meta name="description" content="Gamified 16-bit Retro RPG Trading Dashboard for Coinbase Tokenized Stocks on Base Network. Level up your portfolio, equip legendary stocks, and gain XP on every market move.">
+  <meta name="description" content="Gamified 16-bit Retro RPG Trading Dashboard for Coinbase Tokenized Stocks on Base Network. Equip NFT gear, raid weekly market bosses for $5,000 USD prizes, and track on-chain equities.">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/screens.css">
 </head>
 <body>
 
-  <!-- Retro CRT Scanlines & Vignette -->
+  <!-- Retro Vignette & CRT (Disabled by default for comfort) -->
   <div class="scanlines"></div>
   <div class="vignette"></div>
 
@@ -31,6 +31,8 @@
       <button class="nav-btn active" data-screen="character">HERO</button>
       <button class="nav-btn" data-screen="inventory">INVENTORY</button>
       <button class="nav-btn" data-screen="market">MARKET</button>
+      <button class="nav-btn" data-screen="armory">ARMORY (NFTS)</button>
+      <button class="nav-btn" data-screen="bossraid">BOSS RAID</button>
       <button class="nav-btn" data-screen="quests">QUESTS</button>
       <button class="nav-btn" data-screen="leaderboard">HALL OF FAME</button>
     </nav>
@@ -39,12 +41,12 @@
       <span class="wallet-badge" id="nav-cash-val">$1,450.00</span>
       <span class="wallet-badge" id="nav-lvl-val" style="color:var(--text-gold);">LVL 1</span>
       <button class="pixel-btn sm btn-dark" id="toggle-sound">AUDIO: ON</button>
-      <button class="pixel-btn sm btn-dark" id="toggle-crt">CRT: ON</button>
+      <button class="pixel-btn sm btn-dark" id="toggle-crt">CRT: OFF</button>
     </div>
   </header>
 
-  <!-- ================= SCREEN 1: TITLE SCREEN ================= -->
   <main>
+    <!-- ================= SCREEN 1: TITLE SCREEN ================= -->
     <section id="screen-title" class="screen">
       <div class="title-card-hero rpg-frame">
         <img src="assets/title.jpg" alt="Stock Quest 16-bit Banner" class="title-banner-img">
@@ -52,7 +54,7 @@
 
       <p class="title-tagline">
         GAMIFIED 16-BIT RETRO RPG FOR COINBASE TOKENIZED STOCKS ON BASE.
-        EQUIP STOCKS AS GEAR, LEVEL UP YOUR ATTRIBUTES, AND GAIN XP ON VICTORIES AND DEFENSIVE MOVES.
+        EQUIP RARE NFTS, SLAY VOLATILITY IN WEEKLY BOSS RAIDS FOR $5,000 USD POOLS, AND EARN XP ON EVERY ON-CHAIN MOVE.
       </p>
 
       <div class="title-action-box">
@@ -60,8 +62,8 @@
         <button id="btn-press-start" class="pixel-btn btn-green" style="font-size:12px; padding: 14px 28px;">
           ENTER THE TAVERN (CONNECT WALLET)
         </button>
-        <div style="font-size:8px; color:var(--text-muted); margin-top:8px;">
-          CONNECTED: 0x7F2a...Base • BUILDER QUEST EDITION
+        <div style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-dim); margin-top:8px;">
+          CONNECTED: 0x7F2a...Base • BASE LATAM BUILDER QUEST EDITION
         </div>
       </div>
     </section>
@@ -133,19 +135,19 @@
               <div class="overview-stat-val" id="overview-holdings-count">3 Assets</div>
             </div>
             <div class="overview-stat-card">
-              <div class="overview-stat-label">SECTORS DIVERSIFIED</div>
-              <div class="overview-stat-val" id="overview-sectors-count" style="color:var(--text-cyan);">3 Sectors</div>
+              <div class="overview-stat-label">BASE GAS SAVED</div>
+              <div class="overview-stat-val" id="overview-gas-saved" style="color:var(--text-cyan);">$92.10</div>
             </div>
           </div>
 
           <!-- Hero Attributes -->
           <div class="rpg-frame">
             <div class="rpg-header">
-              <span>HERO ATTRIBUTES (RPG TRADING STATS)</span>
-              <span style="font-size:8px; color:var(--text-muted);">BASE L2 RULES</span>
+              <span>HERO ATTRIBUTES (MODIFIED BY NFTS)</span>
+              <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-dim);">BASE L2 RULES</span>
             </div>
-            <p style="font-size:8px; color:#94a3b8; margin-bottom:12px; line-height:1.5;">
-              Your hero attributes reflect your trading discipline. Attack drives profit harvesting. Defense cushions against market drawdowns. Discipline rewards cutting losses quickly.
+            <p style="font-family:var(--font-dialogue); font-size:18px; color:#cbd5e1; margin-bottom:12px; line-height:1.4;">
+              Attributes scale with your Level and equipped NFTs from the Armory. ATK drives Boss Raid damage. DEF cushions against drawdowns. LCK multiplies rare NFT drop rates.
             </p>
             <div class="dnd-stats-grid" id="dnd-stats-container">
               <!-- Dynamically populated by JS -->
@@ -156,7 +158,7 @@
           <div class="rpg-frame dark" style="margin-top:16px;">
             <div class="rpg-header">
               <span>ADVENTURE & BATTLE LOG</span>
-              <span style="font-size:8px; color:var(--text-cyan);">LIVE FEED</span>
+              <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-cyan);">LIVE FEED</span>
             </div>
             <div class="combat-log-container" id="combat-log-content">
               <!-- Dynamically populated by JS -->
@@ -168,16 +170,26 @@
       </div>
     </section>
 
-    <!-- ================= SCREEN 3: INVENTORY ================= -->
+    <!-- ================= SCREEN 3: INVENTORY (ON-CHAIN TRACKING) ================= -->
     <section id="screen-inventory" class="screen">
       <div class="rpg-frame" style="margin-bottom:20px;">
         <div class="rpg-header">
-          <span>EQUIPMENT & STOCKS INVENTORY</span>
-          <span style="font-size:9px; color:var(--text-gold);">COINBASE ASSETS ON BASE</span>
+          <span>ON-CHAIN STOCKS & EQUIPMENT INVENTORY</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-gold);">COINBASE ASSETS ON BASE</span>
         </div>
-        <p style="font-size:9px; color:#cbd5e1; line-height:1.6;">
-          Your on-chain stock portfolio treated as equipped battle gear. Sell positions to lock in harvest XP or execute defensive parries with disciplined stop-losses!
+        <p style="font-family:var(--font-dialogue); font-size:20px; color:#cbd5e1; line-height:1.4; margin-bottom:12px;">
+          Your tokenized equities on Base Network with institutional-grade tracking: direct BaseScan links, gas fee savings, real-time 24h volume, and sector allocation breakdown.
         </p>
+        <div id="inventory-gas-banner" style="background:#070a1a; padding:12px 16px; border:1px solid #3b5bdb; border-radius:4px; font-family:var(--font-dialogue); font-size:19px;"></div>
+      </div>
+
+      <!-- Sector Allocation Bars -->
+      <div class="rpg-frame dark" style="margin-bottom:20px;">
+        <div class="rpg-header" style="font-size:10px; margin-bottom:12px;">
+          <span>PORTFOLIO SECTOR ALLOCATION</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-cyan);">DIVERSIFICATION METER</span>
+        </div>
+        <div id="inventory-sector-bar"></div>
       </div>
 
       <div class="stock-grid" id="inventory-grid">
@@ -199,15 +211,15 @@
           <div class="npc-dialog-box">
             <div class="npc-dialog-title">Master Barnaby says:</div>
             <div class="npc-dialog-text">
-              "Welcome, adventurer! Browse my finest Coinbase Tokenized Stocks on Base. Each order triggers an action resolution check: Critical Hits grant 5% arbitrage discounts, and facing volatility builds your hero fortitude!"
+              "Welcome, adventurer! Browse my finest Coinbase Tokenized Stocks on Base. Every trade gives you a chance to trigger rare NFT loot chest drops, scaled by your Luck stat!"
               <span class="blinking-cursor"></span>
             </div>
           </div>
 
-          <div style="font-size:8px; color:var(--text-muted); line-height:1.6;">
+          <div style="font-family:var(--font-dialogue); font-size:18px; color:var(--text-dim); line-height:1.4;">
             • Instant settlement on Base L2<br>
             • Backed 1:1 by real stock shares<br>
-            • Earn Hero XP on every order
+            • High LCK unlocks Mythic NFT loot drops
           </div>
         </div>
 
@@ -228,14 +240,130 @@
       </div>
     </section>
 
+    <!-- ================= SCREEN 7: ARMORY & NFTS ================= -->
+    <section id="screen-armory" class="screen">
+      <div class="rpg-frame" style="margin-bottom:20px;">
+        <div class="rpg-header">
+          <span>THE BASE ARMORY (EQUIPPABLE NFTS)</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-gold);">ERC-721 RELICS</span>
+        </div>
+        <p style="font-family:var(--font-dialogue); font-size:20px; color:#cbd5e1; line-height:1.4;">
+          Equip rare, epic, and mythic NFT items to supercharge your hero attributes. Equipped items increase your Boss Raid damage, reduce Base trading fees, and boost critical strike chances.
+        </p>
+      </div>
+
+      <!-- 4 Active Equipment Slots -->
+      <div style="margin-bottom:24px;">
+        <div class="rpg-header" style="font-size:11px; margin-bottom:12px;">
+          <span>ACTIVE EQUIPMENT SLOTS</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-cyan);">LIVE STAT BOOSTERS</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;" id="armory-slots-grid">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </div>
+
+      <!-- NFT Vault (Owned items) -->
+      <div>
+        <div class="rpg-header" style="font-size:11px; margin-bottom:12px;">
+          <span>YOUR NFT VAULT (LOOT COLLECTION)</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-dim);">DROP CHANCES DEPEND ON LUCK</span>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:18px;" id="armory-vault-grid">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 8: BOSS RAID ================= -->
+    <section id="screen-bossraid" class="screen">
+      <div class="rpg-frame" style="margin-bottom:20px;">
+        <div class="rpg-header">
+          <span>WEEKLY MARKET BOSS RAID</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-danger);">$5,000 USD PRIZE POOL</span>
+        </div>
+        <p style="font-family:var(--font-dialogue); font-size:20px; color:#cbd5e1; line-height:1.4;">
+          Unite with all Base adventurers to defeat the Volatility Dragon! Strike the dragon using your hero's ATK stat and on-chain trading volume to claim your proportional share of the $5,000 USD Prize Pool.
+        </p>
+      </div>
+
+      <!-- Boss Arena Banner & Stats -->
+      <div class="shop-layout">
+        <div class="rpg-frame" style="border-color:#ef4444; text-align:center;">
+          <div class="rpg-header" style="color:var(--text-danger);">
+            <span>SCOURGE OF THE BEAR</span>
+          </div>
+          <img src="assets/boss.jpg" alt="The Volatility Dragon" style="width:100%; height:280px; object-fit:cover; border:2px solid #ef4444; border-radius:4px; margin-bottom:14px;">
+          
+          <div style="font-family:var(--font-title); font-size:14px; color:var(--text-danger); margin-bottom:6px;">
+            THE VOLATILITY DRAGON
+          </div>
+          <div style="font-family:var(--font-dialogue); font-size:18px; color:var(--text-gold); margin-bottom:14px;">
+            Prize Pool: $5,000.00 USD on Base
+          </div>
+
+          <!-- Boss HP Bar -->
+          <div class="meter-container meter-hp">
+            <div class="meter-label">
+              <span style="color:#ef4444;">BOSS HEALTH</span>
+              <span id="boss-hp-text">68,450 / 100,000 HP</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="boss-hp-fill" style="width: 68%;"></div>
+            </div>
+          </div>
+
+          <button id="btn-attack-boss" class="pixel-btn btn-danger" style="width:100%; margin-top:10px; font-size:11px; padding:12px;">
+            ATTACK WITH HERO ATK & VOLUME!
+          </button>
+        </div>
+
+        <!-- My Raid Contribution & Top Raiders -->
+        <div>
+          <div class="overview-grid" style="margin-bottom:16px;">
+            <div class="overview-stat-card">
+              <div class="overview-stat-label">YOUR TOTAL RAID DAMAGE</div>
+              <div class="overview-stat-val" id="raid-my-damage" style="color:var(--text-danger);">1,420 DMG</div>
+            </div>
+            <div class="overview-stat-card">
+              <div class="overview-stat-label">ESTIMATED PRIZE SHARE</div>
+              <div class="overview-stat-val" id="raid-my-share" style="color:var(--text-gold);">$142.50 USD</div>
+            </div>
+          </div>
+
+          <div class="rpg-frame dark">
+            <div class="rpg-header" style="font-size:10px;">
+              <span>TOP BASE RAIDERS LEADERBOARD</span>
+              <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-cyan);">LIVE POOL SHARES</span>
+            </div>
+            <table class="arcade-table">
+              <thead>
+                <tr>
+                  <th>RANK</th>
+                  <th>RAIDER</th>
+                  <th>TOTAL DMG</th>
+                  <th>POOL SHARE</th>
+                  <th style="text-align:right;">EST. USDC</th>
+                </tr>
+              </thead>
+              <tbody id="boss-raiders-tbody">
+                <!-- Dynamically populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- ================= SCREEN 5: QUEST BOARD ================= -->
     <section id="screen-quests" class="screen">
       <div class="rpg-frame" style="margin-bottom:20px;">
         <div class="rpg-header">
           <span>BASE BUILDER QUEST BOARD</span>
-          <span style="font-size:9px; color:var(--text-cyan);">ACTIVE BOUNTIES</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-cyan);">ACTIVE BOUNTIES</span>
         </div>
-        <p style="font-size:9px; color:#cbd5e1; line-height:1.6;">
+        <p style="font-family:var(--font-dialogue); font-size:20px; color:#cbd5e1; line-height:1.4;">
           Complete tactical trading objectives to earn gold, unlock rare achievements, and level up your hero on Base Network!
         </p>
       </div>
@@ -250,7 +378,7 @@
       <div class="rpg-frame">
         <div class="rpg-header">
           <span>BASE NETWORK HALL OF FAME</span>
-          <span style="font-size:9px; color:var(--text-gold);">TOP TRADER ADVENTURERS</span>
+          <span style="font-size:16px; font-family:var(--font-dialogue); color:var(--text-gold);">TOP TRADER ADVENTURERS</span>
         </div>
 
         <table class="arcade-table">
@@ -286,32 +414,50 @@
         </div>
       </div>
 
-      <div style="background:var(--bg-panel-dark); border:2px solid #414868; padding:12px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-          <span style="color:var(--text-muted); font-size:8px;">TARGET ASSET:</span>
-          <span id="modal-stock-ticker" style="color:var(--text-gold); font-size:9px;">AAPL</span>
+      <div style="background:var(--bg-panel-dark); border:2px solid #3b5bdb; padding:14px; margin-bottom:14px; border-radius:4px; font-family:var(--font-dialogue);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:18px;">
+          <span style="color:var(--text-dim);">TARGET ASSET:</span>
+          <span id="modal-stock-ticker" style="color:var(--text-gold);">AAPL</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
-          <span style="color:var(--text-muted); font-size:8px;">PRICE PER SHARE:</span>
-          <span id="modal-stock-price" style="font-size:9px;">$198.50</span>
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:18px;">
+          <span style="color:var(--text-dim);">PRICE PER SHARE:</span>
+          <span id="modal-stock-price">$198.50</span>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <span style="color:var(--text-muted); font-size:8px;">QUANTITY:</span>
-          <input type="number" id="buy-shares-qty" value="1.0" min="0.1" step="0.5" style="width:70px; background:#000; color:#fff; border:2px solid #565f89; font-family:var(--font-retro); font-size:9px; padding:4px; text-align:center;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; font-size:18px;">
+          <span style="color:var(--text-dim);">QUANTITY:</span>
+          <input type="number" id="buy-shares-qty" value="1.0" min="0.1" step="0.5" style="width:80px; background:#000; color:#fff; border:2px solid #3b5bdb; font-family:var(--font-dialogue); font-size:18px; padding:4px; text-align:center;">
         </div>
-        <div style="display:flex; justify-content:space-between; border-top:1px dashed #565f89; padding-top:6px; margin-top:6px;">
-          <span style="color:var(--text-cyan); font-size:9px;">ESTIMATED TOTAL:</span>
-          <span id="modal-stock-total" style="color:var(--text-cyan); font-size:10px; font-weight:bold;">$198.50 USD</span>
+        <div style="display:flex; justify-content:space-between; border-top:1px dashed #3b5bdb; padding-top:8px; margin-top:8px; font-size:20px;">
+          <span style="color:var(--text-cyan);">ESTIMATED TOTAL:</span>
+          <span id="modal-stock-total" style="color:var(--text-cyan); font-weight:bold;">$198.50 USD</span>
         </div>
       </div>
 
-      <!-- Result Box -->
-      <div id="modal-roll-result" class="rpg-frame dark" style="display:none; margin-bottom:12px;">
+      <div id="modal-roll-result" class="rpg-frame dark" style="display:none; margin-bottom:14px;">
         <div id="modal-roll-text"></div>
       </div>
 
-      <button id="modal-btn-execute" class="pixel-btn btn-green" style="width:100%; font-size:10px;">
+      <button id="modal-btn-execute" class="pixel-btn btn-green" style="width:100%; font-size:11px; padding:12px;">
         EXECUTE ORDER ON BASE
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= LOOT DROP CHEST MODAL ================= -->
+  <div id="loot-modal" class="modal-backdrop hidden">
+    <div class="modal-card rpg-frame glow-gold" style="text-align:center; max-width:480px;">
+      <div class="rpg-header" style="justify-content:center; color:var(--text-gold);">
+        <span>MYTHIC LOOT DROP!</span>
+      </div>
+
+      <img src="assets/chest.jpg" alt="Loot Chest" style="width:180px; height:180px; object-fit:contain; margin:10px auto; border-radius:8px;">
+
+      <div id="loot-item-details" style="background:#070a1a; padding:14px; border:2px solid #facc15; border-radius:4px; margin-bottom:16px;">
+        <!-- Dynamically populated by JS -->
+      </div>
+
+      <button id="btn-close-loot" class="pixel-btn btn-green" style="width:100%; font-size:11px; padding:12px;">
+        EQUIP IN ARMORY
       </button>
     </div>
   </div>
