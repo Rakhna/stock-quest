@@ -1,33 +1,34 @@
-/* Stock Quest - Design Tokens & 8-Bit Pixel Styles */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+/* Stock Quest - Refined High-Legibility Retro Design Tokens */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
 :root {
-  /* Color Palette - 16-bit SNES & Arcade */
-  --bg-deep: #080811;
-  --bg-main: #0f1026;
-  --bg-panel: #161738;
-  --bg-panel-dark: #0e0f24;
-  --bg-input: #0a0b1a;
+  /* Softer, Eye-Friendly Dark Palette */
+  --bg-deep: #0b0d1b;
+  --bg-main: #11142b;
+  --bg-panel: #181c3b;
+  --bg-panel-dark: #12152e;
+  --bg-input: #0c0e20;
 
-  --border-gold: #f4b41b;
-  --border-gold-light: #fce182;
-  --border-gold-dark: #b8860b;
-  --border-blue: #2f58cd;
+  --border-gold: #f59e0b;
+  --border-gold-light: #fcd34d;
+  --border-gold-dark: #b45309;
+  --border-blue: #3b82f6;
   --border-base-blue: #0052ff;
 
-  --text-main: #f0f4f8;
-  --text-muted: #8b9bb4;
-  --text-gold: #ffd152;
-  --text-cyan: #38ef7d;
-  --text-blue: #5bc0be;
-  --text-danger: #ff4757;
+  --text-main: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-gold: #fbbf24;
+  --text-cyan: #34d399;
+  --text-blue: #60a5fa;
+  --text-danger: #f87171;
   --text-purple: #c084fc;
 
   /* Rarity Colors */
   --rarity-common: #94a3b8;
-  --rarity-rare: #3b82f6;
-  --rarity-epic: #a855f7;
-  --rarity-legendary: #eab308;
+  --rarity-rare: #60a5fa;
+  --rarity-epic: #c084fc;
+  --rarity-legendary: #fbbf24;
 
   /* Bars */
   --hp-bar: #ef4444;
@@ -38,35 +39,38 @@
   --xp-bar-bg: #064e3b;
 
   /* Pixel Shadows */
-  --pixel-shadow-sm: 2px 2px 0px #000;
-  --pixel-shadow-md: 4px 4px 0px #000;
-  --pixel-shadow-lg: 6px 6px 0px #000;
-  --pixel-shadow-gold: 4px 4px 0px #b8860b;
+  --pixel-shadow-sm: 2px 2px 0px rgba(0, 0, 0, 0.6);
+  --pixel-shadow-md: 4px 4px 0px rgba(0, 0, 0, 0.7);
+  --pixel-shadow-lg: 6px 6px 0px rgba(0, 0, 0, 0.8);
+  --pixel-shadow-gold: 4px 4px 0px #b45309;
 
-  /* Typography */
-  --font-retro: 'Press Start 2P', monospace, monospace;
+  /* Hybrid Typography: Retro Arcade for Titles, Clean Modern for Legibility */
+  --font-retro: 'Press Start 2P', cursive, monospace;
+  --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  image-rendering: pixelated;
 }
 
 body {
   background-color: var(--bg-deep);
   color: var(--text-main);
-  font-family: var(--font-retro);
-  font-size: 11px;
+  font-family: var(--font-ui);
+  font-size: 14px;
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
-  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* CRT Scanlines Overlay (Toggleable) */
+/* CRT Scanlines Overlay (DISABLED BY DEFAULT TO PREVENT EYE STRAIN) */
 .scanlines {
+  display: none;
   pointer-events: none;
   position: fixed;
   top: 0;
@@ -76,19 +80,13 @@ body {
   z-index: 9999;
   background: linear-gradient(
     rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.35) 50%
-  ),
-  linear-gradient(
-    90deg,
-    rgba(255, 0, 0, 0.03),
-    rgba(0, 255, 0, 0.01),
-    rgba(0, 0, 255, 0.03)
+    rgba(0, 0, 0, 0.25) 50%
   );
-  background-size: 100% 4px, 6px 100%;
-  opacity: 0.75;
+  background-size: 100% 4px;
+  opacity: 0.35;
 }
 
-/* Vignette */
+/* Vignette (Very subtle) */
 .vignette {
   pointer-events: none;
   position: fixed;
@@ -97,5 +95,5 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 9998;
-  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
+  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.5);
 }
