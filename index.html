@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Quest - Pixel Art RPG Trading on Base</title>
+  <meta name="description" content="Gamified RPG Trading Dashboard for Coinbase Tokenized Stocks on Base Network. Roll D20, earn XP on wins and losses, and level up your portfolio.">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+
+  <!-- Retro CRT Scanlines & Vignette -->
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Persistent Top Navigation Bar -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <img src="assets/d20.jpg" alt="Stock Quest D20" class="nav-logo-icon">
+      <span class="nav-title">STOCK QUEST</span>
+      <span class="nav-network-tag">BASE L2</span>
+    </div>
+
+    <nav class="nav-links">
+      <button class="nav-btn" data-screen="title">TITLE</button>
+      <button class="nav-btn active" data-screen="character">CHARACTER</button>
+      <button class="nav-btn" data-screen="inventory">INVENTORY</button>
+      <button class="nav-btn" data-screen="market">MARKET</button>
+      <button class="nav-btn" data-screen="quests">QUESTS</button>
+      <button class="nav-btn" data-screen="leaderboard">HALL OF FAME</button>
+    </nav>
+
+    <div class="nav-wallet-box">
+      <span class="wallet-badge" id="nav-cash-val">$1,450.00</span>
+      <span class="wallet-badge" id="nav-lvl-val" style="color:var(--text-gold);">LVL 1</span>
+      <button class="pixel-btn sm btn-dark" id="toggle-sound">AUDIO: ON</button>
+      <button class="pixel-btn sm btn-dark" id="toggle-crt">CRT: ON</button>
+    </div>
+  </header>
+
+  <!-- ================= SCREEN 1: TITLE SCREEN ================= -->
+  <main>
+    <section id="screen-title" class="screen">
+      <div class="title-card-hero rpg-frame">
+        <img src="assets/title.jpg" alt="Stock Quest 8-bit Banner" class="title-banner-img">
+      </div>
+
+      <p class="title-tagline">
+        GAMIFIED RPG TRADING FOR COINBASE TOKENIZED STOCKS ON BASE NETWORK.
+        ROLL THE D20 ON EVERY TRADE. GAIN XP THROUGH VICTORIES AND LESSONS LEARNED.
+      </p>
+
+      <div class="title-action-box">
+        <div class="press-start-anim">► PRESS START BUTTON ◄</div>
+        <button id="btn-press-start" class="pixel-btn btn-green" style="font-size:12px; padding: 14px 28px;">
+          ENTER THE DUNGEON (CONNECT WALLET)
+        </button>
+        <div style="font-size:8px; color:var(--text-muted); margin-top:8px;">
+          CONNECTED: 0x7F2a...Base • BUILDER QUEST EDITION
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 2: CHARACTER SHEET (HUB) ================= -->
+    <section id="screen-character" class="screen active">
+      <div class="char-layout">
+        
+        <!-- Left Column: Hero Sprite & Meters -->
+        <div class="rpg-frame">
+          <div class="rpg-header">
+            <span>ADVENTURER</span>
+            <span class="badge-rarity epic" id="char-level-badge">LEVEL 1</span>
+          </div>
+
+          <img src="assets/hero.jpg" alt="Hero Adventurer Sprite" class="char-hero-portrait">
+
+          <div class="char-name-title" id="char-name">Aethelgard</div>
+          <div class="char-class-tag" id="char-class">Paladin of the Blue Chain</div>
+
+          <!-- Meters -->
+          <div class="meter-container meter-hp">
+            <div class="meter-label">
+              <span style="color:#ef4444;">HP (DRAWDOWN SHIELD)</span>
+              <span id="char-hp-text">100 / 100</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="char-hp-fill" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <div class="meter-container meter-mp">
+            <div class="meter-label">
+              <span style="color:#3b82f6;">MP (LIQUID CASH)</span>
+              <span id="char-mp-text">$1,450.00 USD</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="char-mp-fill" style="width: 50%;"></div>
+            </div>
+          </div>
+
+          <div class="meter-container meter-xp">
+            <div class="meter-label">
+              <span style="color:#10b981;">XP (EXPERIENCE)</span>
+              <span id="char-xp-text">120 / 500 XP</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="char-xp-fill" style="width: 24%;"></div>
+            </div>
+          </div>
+
+          <div style="margin-top:16px;">
+            <button class="pixel-btn btn-blue sm" id="btn-roll-solo-dice" style="width:100%;">
+              ROLL D20 DIVINATION (+XP)
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: D&D Ability Scores & Overview -->
+        <div>
+          <!-- Financial Overview Cards -->
+          <div class="overview-grid">
+            <div class="overview-stat-card">
+              <div class="overview-stat-label">TOTAL NET WORTH</div>
+              <div class="overview-stat-val" id="overview-networth" style="color:var(--text-gold);">$2,125.75</div>
+            </div>
+            <div class="overview-stat-card">
+              <div class="overview-stat-label">TOKENIZED ASSETS</div>
+              <div class="overview-stat-val" id="overview-holdings-count">3 Assets</div>
+            </div>
+            <div class="overview-stat-card">
+              <div class="overview-stat-label">DIVERSIFICATION</div>
+              <div class="overview-stat-val" id="overview-sectors-count" style="color:var(--text-cyan);">3 Sectors</div>
+            </div>
+          </div>
+
+          <!-- D&D Ability Scores -->
+          <div class="rpg-frame">
+            <div class="rpg-header">
+              <span>D&D ABILITY SCORES (TRADING ATTRIBUTES)</span>
+              <span style="font-size:8px; color:var(--text-muted);">BASE L2 RULES</span>
+            </div>
+            <p style="font-size:8px; color:#94a3b8; margin-bottom:12px; line-height:1.5;">
+              Each attribute impacts your trading checks. Wisdom saves protect against steep drawdowns. Strength boosts alpha. Intelligence grants diversification bonuses.
+            </p>
+            <div class="dnd-stats-grid" id="dnd-stats-container">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+
+          <!-- Combat & D20 Dungeon Roll Log -->
+          <div class="rpg-frame dark" style="margin-top:16px;">
+            <div class="rpg-header">
+              <span>DUNGEON ROLL & COMBAT LOG</span>
+              <span style="font-size:8px; color:var(--text-cyan);">LIVE FEED</span>
+            </div>
+            <div class="combat-log-container" id="combat-log-content">
+              <!-- Dynamically populated by JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 3: INVENTORY ================= -->
+    <section id="screen-inventory" class="screen">
+      <div class="rpg-frame" style="margin-bottom:20px;">
+        <div class="rpg-header">
+          <span>TOKENIZED STOCKS INVENTORY</span>
+          <span style="font-size:9px; color:var(--text-gold);">COINBASE ASSETS ON BASE</span>
+        </div>
+        <p style="font-size:9px; color:#cbd5e1; line-height:1.6;">
+          Your on-chain stock portfolio represented as RPG equipment. Sell positions to trigger exit resolution rolls: lock in profit XP or practice disciplined stop-loss saves!
+        </p>
+      </div>
+
+      <div class="stock-grid" id="inventory-grid">
+        <!-- Dynamically populated by JS -->
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 4: MARKET / ITEM SHOP ================= -->
+    <section id="screen-market" class="screen">
+      <div class="shop-layout">
+        
+        <!-- Shopkeeper NPC Panel -->
+        <div class="rpg-frame">
+          <div class="rpg-header">
+            <span>TAVERN MERCHANT</span>
+          </div>
+          <img src="assets/shopkeeper.jpg" alt="Shopkeeper NPC Sprite" class="shopkeeper-img">
+          
+          <div class="npc-dialog-box">
+            <div class="npc-dialog-title">Master Barnaby says:</div>
+            <div class="npc-dialog-text">
+              "Greetings, traveler! Looking for Coinbase Tokenized Stocks on Base? Every purchase triggers a D20 roll: Natural 20s grant 5% discounts and massive XP, while tough rolls build your survival fortitude!"
+              <span class="blinking-cursor"></span>
+            </div>
+          </div>
+
+          <div style="font-size:8px; color:var(--text-muted); line-height:1.6;">
+            • Instant settlement on Base L2<br>
+            • Backed 1:1 by real stock shares<br>
+            • Earn D&D trading XP every roll
+          </div>
+        </div>
+
+        <!-- Catalog & Stocks Grid -->
+        <div>
+          <div class="shop-filter-tabs">
+            <button class="pixel-btn sm btn-dark market-tab active" data-filter="all">ALL STOCKS</button>
+            <button class="pixel-btn sm btn-dark market-tab" data-filter="tech">MEGA TECH</button>
+            <button class="pixel-btn sm btn-dark market-tab" data-filter="finance">FINANCE & CRYPTO</button>
+            <button class="pixel-btn sm btn-dark market-tab" data-filter="index">INDEX ETF</button>
+          </div>
+
+          <div class="stock-grid" id="market-grid">
+            <!-- Dynamically populated by JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 5: QUEST BOARD ================= -->
+    <section id="screen-quests" class="screen">
+      <div class="rpg-frame" style="margin-bottom:20px;">
+        <div class="rpg-header">
+          <span>BASE BUILDER QUEST BOARD</span>
+          <span style="font-size:9px; color:var(--text-cyan);">ACTIVE BOUNTIES</span>
+        </div>
+        <p style="font-size:9px; color:#cbd5e1; line-height:1.6;">
+          Complete tactical trading objectives to earn gold, unlock rare achievements, and ascend the Base Network leaderboard!
+        </p>
+      </div>
+
+      <div class="quests-grid" id="quests-grid">
+        <!-- Dynamically populated by JS -->
+      </div>
+    </section>
+
+    <!-- ================= SCREEN 6: LEADERBOARD ================= -->
+    <section id="screen-leaderboard" class="screen">
+      <div class="rpg-frame">
+        <div class="rpg-header">
+          <span>BASE NETWORK HALL OF FAME</span>
+          <span style="font-size:9px; color:var(--text-gold);">TOP TRADER ADVENTURERS</span>
+        </div>
+
+        <table class="arcade-table">
+          <thead>
+            <tr>
+              <th>RANK</th>
+              <th>ADVENTURER</th>
+              <th>RPG CLASS</th>
+              <th>LEVEL</th>
+              <th style="text-align:right;">NET WORTH (USD)</th>
+              <th style="text-align:right;">WIN RATE</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-tbody">
+            <!-- Dynamically populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= D20 TRADING & EXECUTION MODAL ================= -->
+  <div id="buy-modal" class="modal-backdrop hidden">
+    <div class="modal-card rpg-frame glow-gold">
+      <div class="rpg-header">
+        <span>ON-CHAIN EXECUTION CHECK</span>
+        <button id="modal-btn-cancel" class="pixel-btn sm btn-danger">X</button>
+      </div>
+
+      <div style="text-align:center; margin: 12px 0;">
+        <div class="d20-dice-wrapper" id="modal-d20-dice">
+          <img src="assets/d20.jpg" alt="D20 Dice" class="d20-dice-img">
+        </div>
+      </div>
+
+      <div style="background:var(--bg-panel-dark); border:2px solid #414868; padding:12px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <span style="color:var(--text-muted); font-size:8px;">TARGET ASSET:</span>
+          <span id="modal-stock-ticker" style="color:var(--text-gold); font-size:9px;">AAPL</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <span style="color:var(--text-muted); font-size:8px;">PRICE PER SHARE:</span>
+          <span id="modal-stock-price" style="font-size:9px;">$198.50</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <span style="color:var(--text-muted); font-size:8px;">QUANTITY:</span>
+          <input type="number" id="buy-shares-qty" value="1.0" min="0.1" step="0.5" style="width:70px; background:#000; color:#fff; border:2px solid #565f89; font-family:var(--font-retro); font-size:9px; padding:4px; text-align:center;">
+        </div>
+        <div style="display:flex; justify-content:space-between; border-top:1px dashed #565f89; padding-top:6px; margin-top:6px;">
+          <span style="color:var(--text-cyan); font-size:9px;">ESTIMATED TOTAL:</span>
+          <span id="modal-stock-total" style="color:var(--text-cyan); font-size:10px; font-weight:bold;">$198.50 USD</span>
+        </div>
+      </div>
+
+      <!-- Result Box -->
+      <div id="modal-roll-result" class="rpg-frame dark" style="display:none; margin-bottom:12px;">
+        <div id="modal-roll-text"></div>
+      </div>
+
+      <button id="modal-btn-execute" class="pixel-btn btn-green" style="width:100%; font-size:10px;">
+        ROLL D20 & EXECUTE ON BASE
+      </button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/engine.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

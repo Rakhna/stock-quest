@@ -1,0 +1,101 @@
+/* Stock Quest - Design Tokens & 8-Bit Pixel Styles */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+  /* Color Palette - 16-bit SNES & Arcade */
+  --bg-deep: #080811;
+  --bg-main: #0f1026;
+  --bg-panel: #161738;
+  --bg-panel-dark: #0e0f24;
+  --bg-input: #0a0b1a;
+
+  --border-gold: #f4b41b;
+  --border-gold-light: #fce182;
+  --border-gold-dark: #b8860b;
+  --border-blue: #2f58cd;
+  --border-base-blue: #0052ff;
+
+  --text-main: #f0f4f8;
+  --text-muted: #8b9bb4;
+  --text-gold: #ffd152;
+  --text-cyan: #38ef7d;
+  --text-blue: #5bc0be;
+  --text-danger: #ff4757;
+  --text-purple: #c084fc;
+
+  /* Rarity Colors */
+  --rarity-common: #94a3b8;
+  --rarity-rare: #3b82f6;
+  --rarity-epic: #a855f7;
+  --rarity-legendary: #eab308;
+
+  /* Bars */
+  --hp-bar: #ef4444;
+  --hp-bar-bg: #450a0a;
+  --mp-bar: #3b82f6;
+  --mp-bar-bg: #172554;
+  --xp-bar: #10b981;
+  --xp-bar-bg: #064e3b;
+
+  /* Pixel Shadows */
+  --pixel-shadow-sm: 2px 2px 0px #000;
+  --pixel-shadow-md: 4px 4px 0px #000;
+  --pixel-shadow-lg: 6px 6px 0px #000;
+  --pixel-shadow-gold: 4px 4px 0px #b8860b;
+
+  /* Typography */
+  --font-retro: 'Press Start 2P', monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  image-rendering: pixelated;
+}
+
+body {
+  background-color: var(--bg-deep);
+  color: var(--text-main);
+  font-family: var(--font-retro);
+  font-size: 11px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* CRT Scanlines Overlay (Toggleable) */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.35) 50%
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.03),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.03)
+  );
+  background-size: 100% 4px, 6px 100%;
+  opacity: 0.75;
+}
+
+/* Vignette */
+.vignette {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.85);
+}

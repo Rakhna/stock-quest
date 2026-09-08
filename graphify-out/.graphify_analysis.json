@@ -1,0 +1,155 @@
+{
+  "communities": {
+    "0": [
+      "js_audio",
+      "js_audio_retroaudio",
+      "js_audio_retroaudio_constructor",
+      "js_audio_retroaudio_init",
+      "js_audio_retroaudio_playblip",
+      "js_audio_retroaudio_playcoin",
+      "js_audio_retroaudio_playcritfail",
+      "js_audio_retroaudio_playcritsuccess",
+      "js_audio_retroaudio_playdiceroll",
+      "js_audio_retroaudio_playlevelup",
+      "js_audio_retroaudio_togglemute"
+    ],
+    "1": [
+      "js_app",
+      "js_app_fullrender",
+      "js_app_rendercharactersheet",
+      "js_app_renderleaderboard",
+      "js_app_renderlog",
+      "js_app_rendernavstats",
+      "js_app_switchscreen"
+    ],
+    "2": [
+      "js_engine",
+      "js_engine_stockquestengine",
+      "js_engine_stockquestengine_constructor",
+      "js_engine_stockquestengine_getportfoliovalue",
+      "js_engine_stockquestengine_subscribe",
+      "js_engine_stockquestengine_tickmarket"
+    ],
+    "3": [
+      "js_data",
+      "js_data_initial_player",
+      "js_data_leaderboard_data",
+      "js_data_quests_catalog",
+      "js_data_tokenized_stocks"
+    ],
+    "4": [
+      "js_engine_stockquestengine_awardxp",
+      "js_engine_stockquestengine_claimquest",
+      "js_engine_stockquestengine_executesell",
+      "js_engine_stockquestengine_logaction",
+      "js_engine_stockquestengine_notify"
+    ],
+    "5": [
+      "js_app_handlesellaction",
+      "js_app_renderinventory",
+      "js_app_renderquests",
+      "js_app_showtoast"
+    ],
+    "6": [
+      "js_engine_stockquestengine_checkquesttrigger",
+      "js_engine_stockquestengine_executebuy",
+      "js_engine_stockquestengine_getsectorscount",
+      "js_engine_stockquestengine_rolld20"
+    ],
+    "7": [
+      "js_app_openbuymodal",
+      "js_app_rendermarket",
+      "js_app_updatemodaltotal"
+    ]
+  },
+  "cohesion": {
+    "0": 0.2909090909090909,
+    "1": 0.47619047619047616,
+    "2": 0.4,
+    "3": 0.4,
+    "4": 0.8,
+    "5": 0.5,
+    "6": 0.6666666666666666,
+    "7": 0.6666666666666666
+  },
+  "gods": [
+    {
+      "id": "js_engine_stockquestengine",
+      "label": "StockQuestEngine",
+      "degree": 14
+    },
+    {
+      "id": "js_audio_retroaudio",
+      "label": "RetroAudio",
+      "degree": 10
+    },
+    {
+      "id": "js_app_fullrender",
+      "label": "fullRender()",
+      "degree": 8
+    },
+    {
+      "id": "js_app_showtoast",
+      "label": "showToast()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_renderinventory",
+      "label": "renderInventory()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_handlesellaction",
+      "label": "handleSellAction()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_rendermarket",
+      "label": "renderMarket()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_openbuymodal",
+      "label": "openBuyModal()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_renderquests",
+      "label": "renderQuests()",
+      "degree": 3
+    },
+    {
+      "id": "js_app_rendernavstats",
+      "label": "renderNavStats()",
+      "degree": 2
+    }
+  ],
+  "surprises": [
+    {
+      "source": "fullRender()",
+      "target": "renderInventory()",
+      "source_files": [
+        "js/app.js",
+        "js/app.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 5 \u2192 community 1"
+    },
+    {
+      "source": "fullRender()",
+      "target": "renderMarket()",
+      "source_files": [
+        "js/app.js",
+        "js/app.js"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "note": "Bridges community 7 \u2192 community 1"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

@@ -1,0 +1,367 @@
+/* Stock Quest - Reusable Pixel Art UI Components */
+
+/* --- Retro RPG Frames --- */
+.rpg-frame {
+  background-color: var(--bg-panel);
+  border: 4px solid var(--border-gold);
+  box-shadow: 
+    inset -4px -4px 0px 0px var(--border-gold-dark),
+    inset 4px 4px 0px 0px var(--border-gold-light),
+    var(--pixel-shadow-md);
+  padding: 16px;
+  position: relative;
+}
+
+.rpg-frame.dark {
+  background-color: var(--bg-panel-dark);
+  border-color: #3b4261;
+  box-shadow: 
+    inset -4px -4px 0px 0px #1e2030,
+    inset 4px 4px 0px 0px #565f89,
+    var(--pixel-shadow-md);
+}
+
+.rpg-frame.blue {
+  border-color: var(--border-blue);
+  box-shadow: 
+    inset -4px -4px 0px 0px #1a3680,
+    inset 4px 4px 0px 0px #5c85ff,
+    var(--pixel-shadow-md);
+}
+
+.rpg-frame.glow-gold {
+  box-shadow: 
+    inset -4px -4px 0px 0px var(--border-gold-dark),
+    inset 4px 4px 0px 0px var(--border-gold-light),
+    0 0 16px rgba(244, 180, 27, 0.45);
+}
+
+/* Header within frame */
+.rpg-header {
+  color: var(--text-gold);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 3px dashed rgba(244, 180, 27, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- Pixel Buttons --- */
+.pixel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-retro);
+  font-size: 10px;
+  color: #000;
+  background-color: var(--border-gold);
+  border: 3px solid #fff;
+  box-shadow: 
+    inset -3px -3px 0px 0px var(--border-gold-dark),
+    inset 3px 3px 0px 0px var(--border-gold-light),
+    var(--pixel-shadow-sm);
+  padding: 10px 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.05s ease;
+}
+
+.pixel-btn:hover {
+  filter: brightness(1.15);
+  transform: translate(-1px, -1px);
+  box-shadow: 
+    inset -3px -3px 0px 0px var(--border-gold-dark),
+    inset 3px 3px 0px 0px var(--border-gold-light),
+    var(--pixel-shadow-md);
+}
+
+.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.pixel-btn.btn-blue {
+  background-color: #3b82f6;
+  color: #fff;
+  box-shadow: 
+    inset -3px -3px 0px 0px #1d4ed8,
+    inset 3px 3px 0px 0px #93c5fd,
+    var(--pixel-shadow-sm);
+}
+
+.pixel-btn.btn-green {
+  background-color: #10b981;
+  color: #fff;
+  box-shadow: 
+    inset -3px -3px 0px 0px #047857,
+    inset 3px 3px 0px 0px #6ee7b7,
+    var(--pixel-shadow-sm);
+}
+
+.pixel-btn.btn-danger {
+  background-color: #ef4444;
+  color: #fff;
+  box-shadow: 
+    inset -3px -3px 0px 0px #991b1b,
+    inset 3px 3px 0px 0px #fca5a5,
+    var(--pixel-shadow-sm);
+}
+
+.pixel-btn.btn-dark {
+  background-color: #24283b;
+  color: #c0caf5;
+  border-color: #414868;
+  box-shadow: 
+    inset -3px -3px 0px 0px #1a1b26,
+    inset 3px 3px 0px 0px #565f89,
+    var(--pixel-shadow-sm);
+}
+
+.pixel-btn.sm {
+  font-size: 8px;
+  padding: 6px 10px;
+}
+
+/* --- Segmented Retro Meters (HP, MP, XP) --- */
+.meter-container {
+  margin-bottom: 10px;
+}
+
+.meter-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  margin-bottom: 4px;
+}
+
+.meter-track {
+  height: 14px;
+  background-color: #000;
+  border: 2px solid #565f89;
+  padding: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  transition: width 0.3s steps(10);
+}
+
+.meter-hp .meter-fill {
+  background: repeating-linear-gradient(
+    90deg,
+    #ef4444,
+    #ef4444 8px,
+    #b91c1c 8px,
+    #b91c1c 10px
+  );
+}
+
+.meter-mp .meter-fill {
+  background: repeating-linear-gradient(
+    90deg,
+    #3b82f6,
+    #3b82f6 8px,
+    #1d4ed8 8px,
+    #1d4ed8 10px
+  );
+}
+
+.meter-xp .meter-fill {
+  background: repeating-linear-gradient(
+    90deg,
+    #10b981,
+    #10b981 8px,
+    #047857 8px,
+    #047857 10px
+  );
+}
+
+/* --- Rarity Badges --- */
+.badge-rarity {
+  font-size: 8px;
+  padding: 3px 6px;
+  border: 2px solid currentColor;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.badge-rarity.common {
+  color: var(--rarity-common);
+  border-color: var(--rarity-common);
+}
+
+.badge-rarity.rare {
+  color: var(--rarity-rare);
+  border-color: var(--rarity-rare);
+}
+
+.badge-rarity.epic {
+  color: var(--rarity-epic);
+  border-color: var(--rarity-epic);
+}
+
+.badge-rarity.legendary {
+  color: var(--rarity-legendary);
+  border-color: var(--rarity-legendary);
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 2px var(--rarity-legendary); }
+  50% { box-shadow: 0 0 10px var(--rarity-legendary); }
+}
+
+/* --- D20 Rolling Modal & Animation --- */
+.d20-dice-wrapper {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.d20-dice-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.d20-shake {
+  animation: dice-shake 0.6s ease-in-out infinite;
+}
+
+@keyframes dice-shake {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-18deg) scale(1.1); }
+  50% { transform: rotate(18deg) scale(1.15); }
+  75% { transform: rotate(-10deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+
+/* --- Modal Overlay --- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+  padding: 16px;
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal-card {
+  max-width: 540px;
+  width: 100%;
+  animation: pop-in 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes pop-in {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* --- Toast Notification --- */
+#toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10000;
+}
+
+.toast {
+  background-color: var(--bg-panel);
+  border: 3px solid var(--border-gold);
+  box-shadow: var(--pixel-shadow-md);
+  padding: 12px 18px;
+  color: var(--text-main);
+  font-size: 10px;
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slide-in 0.3s ease-out;
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.toast.toast-crit {
+  border-color: #ffd700;
+  background-color: #2b1e06;
+  color: #fffa65;
+}
+
+.toast.toast-fail {
+  border-color: #ef4444;
+  background-color: #290808;
+  color: #fca5a5;
+}
+
+.toast.toast-xp {
+  border-color: #10b981;
+  background-color: #062e20;
+  color: #6ee7b7;
+}
+
+/* --- Dialog Box / NPC Speech --- */
+.npc-dialog-box {
+  background-color: var(--bg-panel-dark);
+  border: 4px solid #fff;
+  box-shadow: 
+    inset -3px -3px 0 #1e2030,
+    inset 3px 3px 0 #565f89,
+    var(--pixel-shadow-md);
+  padding: 14px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.npc-dialog-title {
+  color: var(--text-gold);
+  font-size: 9px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.npc-dialog-text {
+  font-size: 10px;
+  line-height: 1.7;
+  color: #e2e8f0;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 12px;
+  background-color: #fff;
+  margin-left: 4px;
+  animation: blink 0.8s infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
