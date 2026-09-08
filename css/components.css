@@ -1,128 +1,161 @@
-/* Stock Quest - High Legibility UI Components */
+/* Stock Quest - Authentic 16-Bit JRPG Visual Components */
 
-/* --- Retro RPG Frames --- */
+/* --- Classic SNES Crystal Dialogue / Menu Frame --- */
 .rpg-frame {
-  background-color: var(--bg-panel);
-  border: 3px solid var(--border-gold);
-  border-radius: 6px;
+  background: var(--bg-panel-gradient);
+  border: 3px solid #facc15;
+  border-radius: 4px;
   box-shadow: 
-    inset -3px -3px 0px 0px var(--border-gold-dark),
-    inset 3px 3px 0px 0px var(--border-gold-light),
-    0 4px 16px rgba(0, 0, 0, 0.4);
+    0 0 0 2px #070a1e,
+    inset 0 0 0 2px #1e293b,
+    inset 0 0 24px rgba(59, 130, 246, 0.2),
+    var(--pixel-shadow);
   padding: 20px;
   position: relative;
 }
 
-.rpg-frame.dark {
-  background-color: var(--bg-panel-dark);
-  border-color: #334155;
-  box-shadow: 
-    inset -2px -2px 0px 0px #1e293b,
-    inset 2px 2px 0px 0px #475569,
-    0 4px 12px rgba(0, 0, 0, 0.4);
+.rpg-frame::before {
+  content: '◆';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  font-size: 10px;
+  color: #fde047;
+  text-shadow: 0 0 4px #eab308;
+  line-height: 1;
 }
 
-.rpg-frame.blue {
-  border-color: var(--border-blue);
+.rpg-frame::after {
+  content: '◆';
+  position: absolute;
+  bottom: -8px;
+  right: -8px;
+  font-size: 10px;
+  color: #fde047;
+  text-shadow: 0 0 4px #eab308;
+  line-height: 1;
+}
+
+.rpg-frame.dark {
+  background: linear-gradient(180deg, #0f142e 0%, #060816 100%);
+  border-color: #475569;
   box-shadow: 
-    inset -3px -3px 0px 0px #1e40af,
-    inset 3px 3px 0px 0px #60a5fa,
-    0 4px 16px rgba(59, 130, 246, 0.25);
+    0 0 0 2px #02040a,
+    inset 0 0 0 2px #1e293b,
+    var(--pixel-shadow);
+}
+
+.rpg-frame.dark::before,
+.rpg-frame.dark::after {
+  color: #64748b;
+  text-shadow: none;
 }
 
 .rpg-frame.glow-gold {
+  border-color: #fde047;
   box-shadow: 
-    inset -3px -3px 0px 0px var(--border-gold-dark),
-    inset 3px 3px 0px 0px var(--border-gold-light),
-    0 0 20px rgba(245, 158, 11, 0.35);
+    0 0 0 2px #070a1e,
+    0 0 20px rgba(253, 224, 71, 0.4),
+    var(--pixel-shadow);
 }
 
 /* Header within frame */
 .rpg-header {
-  font-family: var(--font-retro);
+  font-family: var(--font-title);
   color: var(--text-gold);
-  font-size: 13px;
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   margin-bottom: 16px;
   padding-bottom: 10px;
-  border-bottom: 2px dashed rgba(245, 158, 11, 0.25);
+  border-bottom: 2px solid rgba(250, 204, 21, 0.3);
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 8px;
+  text-shadow: 2px 2px 0px #000;
 }
 
-/* --- Buttons (Crisp & Legible) --- */
+/* --- Tactile 16-Bit Arcade Buttons --- */
 .pixel-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-family: var(--font-retro);
+  font-family: var(--font-pixel);
   font-size: 11px;
-  color: #0f172a;
-  background-color: var(--border-gold);
-  border: 2px solid #fff;
-  border-radius: 4px;
+  font-weight: 700;
+  color: #000000;
+  background: linear-gradient(180deg, #fef08a 0%, #eab308 100%);
+  border: 2px solid #ffffff;
+  border-radius: 2px;
   box-shadow: 
-    inset -2px -2px 0px 0px var(--border-gold-dark),
-    inset 2px 2px 0px 0px var(--border-gold-light),
-    var(--pixel-shadow-sm);
+    inset -2px -2px 0px 0px #a16207,
+    inset 2px 2px 0px 0px #fef9c3,
+    var(--pixel-shadow);
   padding: 10px 18px;
   cursor: pointer;
   text-transform: uppercase;
   text-decoration: none;
-  font-weight: 700;
+  letter-spacing: 0.5px;
   transition: transform 0.05s ease, filter 0.1s ease;
 }
 
 .pixel-btn:hover {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
+  filter: brightness(1.2);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset -2px -2px 0px 0px #a16207,
+    inset 2px 2px 0px 0px #fef9c3,
+    0 4px 12px rgba(250, 204, 21, 0.4);
 }
 
 .pixel-btn:active {
-  transform: translateY(1px);
-  box-shadow: none;
+  transform: translateY(2px);
+  box-shadow: 
+    inset 2px 2px 0px 0px #a16207;
 }
 
 .pixel-btn.btn-blue {
-  background-color: #3b82f6;
-  color: #fff;
+  background: linear-gradient(180deg, #93c5fd 0%, #2563eb 100%);
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #000;
   box-shadow: 
-    inset -2px -2px 0px 0px #1d4ed8,
-    inset 2px 2px 0px 0px #93c5fd,
-    var(--pixel-shadow-sm);
+    inset -2px -2px 0px 0px #1e40af,
+    inset 2px 2px 0px 0px #bfdbfe,
+    var(--pixel-shadow);
 }
 
 .pixel-btn.btn-green {
-  background-color: #10b981;
-  color: #fff;
+  background: linear-gradient(180deg, #86efac 0%, #059669 100%);
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #000;
   box-shadow: 
     inset -2px -2px 0px 0px #047857,
-    inset 2px 2px 0px 0px #6ee7b7,
-    var(--pixel-shadow-sm);
+    inset 2px 2px 0px 0px #bbf7d0,
+    var(--pixel-shadow);
 }
 
 .pixel-btn.btn-danger {
-  background-color: #ef4444;
-  color: #fff;
+  background: linear-gradient(180deg, #fca5a5 0%, #dc2626 100%);
+  color: #ffffff;
+  text-shadow: 1px 1px 0 #000;
   box-shadow: 
     inset -2px -2px 0px 0px #991b1b,
-    inset 2px 2px 0px 0px #fca5a5,
-    var(--pixel-shadow-sm);
+    inset 2px 2px 0px 0px #fee2e2,
+    var(--pixel-shadow);
 }
 
 .pixel-btn.btn-dark {
-  background-color: #1e293b;
-  color: #e2e8f0;
-  border-color: #475569;
+  background: linear-gradient(180deg, #334155 0%, #0f172a 100%);
+  color: #f1f5f9;
+  border-color: #64748b;
+  text-shadow: 1px 1px 0 #000;
   box-shadow: 
-    inset -2px -2px 0px 0px #0f172a,
-    inset 2px 2px 0px 0px #64748b,
-    var(--pixel-shadow-sm);
+    inset -2px -2px 0px 0px #020617,
+    inset 2px 2px 0px 0px #475569,
+    var(--pixel-shadow);
 }
 
 .pixel-btn.sm {
@@ -130,7 +163,7 @@
   padding: 6px 12px;
 }
 
-/* --- Clean Segmented Meters (HP, MP, XP) --- */
+/* --- Segmented Retro Health / Mana / XP Bars --- */
 .meter-container {
   margin-bottom: 14px;
 }
@@ -138,17 +171,19 @@
 .meter-label {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-family: var(--font-pixel);
   margin-bottom: 6px;
-  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
 }
 
 .meter-track {
   height: 18px;
-  background-color: #070913;
-  border: 2px solid #334155;
-  border-radius: 4px;
+  background-color: #03050c;
+  border: 2px solid #ffffff;
+  box-shadow: 
+    inset 0 0 6px rgba(0, 0, 0, 0.9),
+    2px 2px 0px #000;
   padding: 2px;
   position: relative;
   overflow: hidden;
@@ -156,95 +191,91 @@
 
 .meter-fill {
   height: 100%;
-  border-radius: 2px;
-  transition: width 0.3s ease;
+  transition: width 0.3s steps(12);
 }
 
 .meter-hp .meter-fill {
-  background: linear-gradient(90deg, #ef4444, #dc2626);
+  background: repeating-linear-gradient(
+    90deg,
+    #ef4444,
+    #ef4444 12px,
+    #b91c1c 12px,
+    #b91c1c 14px
+  );
 }
 
 .meter-mp .meter-fill {
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  background: repeating-linear-gradient(
+    90deg,
+    #3b82f6,
+    #3b82f6 12px,
+    #1d4ed8 12px,
+    #1d4ed8 14px
+  );
 }
 
 .meter-xp .meter-fill {
-  background: linear-gradient(90deg, #10b981, #059669);
+  background: repeating-linear-gradient(
+    90deg,
+    #10b981,
+    #10b981 12px,
+    #047857 12px,
+    #047857 14px
+  );
 }
 
-/* --- Rarity Badges --- */
+/* --- Rarity Badges (Jewel style) --- */
 .badge-rarity {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 4px 8px;
-  border: 1.5px solid currentColor;
-  border-radius: 4px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  padding: 3px 8px;
+  border: 2px solid currentColor;
+  border-radius: 2px;
   text-transform: uppercase;
   font-weight: 700;
   display: inline-block;
+  letter-spacing: 0.5px;
 }
 
 .badge-rarity.common {
   color: var(--rarity-common);
   border-color: var(--rarity-common);
-  background: rgba(148, 163, 184, 0.1);
+  background: rgba(148, 163, 184, 0.15);
 }
 
 .badge-rarity.rare {
   color: var(--rarity-rare);
   border-color: var(--rarity-rare);
-  background: rgba(96, 165, 250, 0.1);
+  background: rgba(56, 189, 248, 0.15);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
 }
 
 .badge-rarity.epic {
   color: var(--rarity-epic);
   border-color: var(--rarity-epic);
-  background: rgba(192, 132, 252, 0.1);
+  background: rgba(192, 132, 252, 0.15);
+  box-shadow: 0 0 10px rgba(192, 132, 252, 0.35);
 }
 
 .badge-rarity.legendary {
   color: var(--rarity-legendary);
   border-color: var(--rarity-legendary);
-  background: rgba(251, 191, 36, 0.12);
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+  background: rgba(251, 191, 36, 0.2);
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.5);
+  animation: pulse-gem 1.8s infinite;
 }
 
-/* --- D20 / Rune Component --- */
-.d20-dice-wrapper {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.d20-dice-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.d20-shake {
-  animation: dice-shake 0.6s ease-in-out infinite;
-}
-
-@keyframes dice-shake {
-  0% { transform: rotate(0deg) scale(1); }
-  25% { transform: rotate(-12deg) scale(1.08); }
-  50% { transform: rotate(12deg) scale(1.12); }
-  75% { transform: rotate(-6deg) scale(1.04); }
-  100% { transform: rotate(0deg) scale(1); }
+@keyframes pulse-gem {
+  0%, 100% { box-shadow: 0 0 6px rgba(251, 191, 36, 0.4); }
+  50% { box-shadow: 0 0 18px rgba(251, 191, 36, 0.8); }
 }
 
 /* --- Modal Overlay --- */
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(7, 9, 19, 0.88);
-  backdrop-filter: blur(4px);
+  background: rgba(4, 6, 17, 0.9);
+  backdrop-filter: blur(2px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -263,11 +294,11 @@
 }
 
 @keyframes pop-in {
-  from { transform: scale(0.92); opacity: 0; }
+  from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
-/* --- Toast Notification --- */
+/* --- Toast Notification (Retro Banner) --- */
 #toast-container {
   position: fixed;
   top: 24px;
@@ -279,14 +310,14 @@
 }
 
 .toast {
-  background-color: var(--bg-panel);
-  border: 2px solid var(--border-gold);
-  border-radius: 6px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  padding: 14px 18px;
+  background: linear-gradient(180deg, #182258 0%, #0c112e 100%);
+  border: 2px solid var(--gold-primary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), var(--pixel-shadow);
+  padding: 12px 18px;
   color: var(--text-main);
-  font-size: 13px;
-  max-width: 400px;
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  max-width: 420px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -299,54 +330,60 @@
 }
 
 .toast.toast-crit {
-  border-color: #fbbf24;
-  background-color: #2b1f0c;
+  border-color: #fef08a;
+  background: linear-gradient(180deg, #422006 0%, #1a0b02 100%);
   color: #fef08a;
+  box-shadow: 0 0 16px rgba(254, 240, 138, 0.4);
 }
 
 .toast.toast-fail {
-  border-color: #f87171;
-  background-color: #290f11;
+  border-color: #fca5a5;
+  background: linear-gradient(180deg, #450a0a 0%, #1c0303 100%);
   color: #fecaca;
 }
 
 .toast.toast-xp {
-  border-color: #34d399;
-  background-color: #062e20;
-  color: #a7f3d0;
+  border-color: #86efac;
+  background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
+  color: #bbf7d0;
 }
 
-/* --- Dialog Box / NPC Speech --- */
+/* --- Dialogue Box (Final Fantasy SNES Style) --- */
 .npc-dialog-box {
-  background-color: var(--bg-panel-dark);
-  border: 2px solid #475569;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  padding: 16px;
+  background: linear-gradient(180deg, #182463 0%, #0a0e28 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 
+    inset 0 0 0 2px #3b5bdb,
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    var(--pixel-shadow);
+  border-radius: 4px;
+  padding: 16px 20px;
   margin-bottom: 16px;
   position: relative;
 }
 
 .npc-dialog-title {
-  font-family: var(--font-retro);
+  font-family: var(--font-title);
   color: var(--text-gold);
   font-size: 11px;
   margin-bottom: 8px;
-  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #000;
 }
 
 .npc-dialog-text {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #f1f5f9;
+  font-family: var(--font-dialogue);
+  font-size: 20px;
+  line-height: 1.4;
+  color: #ffffff;
+  letter-spacing: 0.5px;
 }
 
 .blinking-cursor {
   display: inline-block;
-  width: 8px;
-  height: 14px;
-  background-color: #fff;
-  margin-left: 4px;
+  width: 10px;
+  height: 16px;
+  background-color: #fde047;
+  margin-left: 6px;
   animation: blink 0.8s infinite;
   vertical-align: middle;
 }

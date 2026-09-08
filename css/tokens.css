@@ -1,53 +1,55 @@
-/* Stock Quest - Refined High-Legibility Retro Design Tokens */
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+/* Stock Quest - Authentic 16-Bit JRPG Design System */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&family=VT323&display=swap');
 
 :root {
-  /* Softer, Eye-Friendly Dark Palette */
-  --bg-deep: #0b0d1b;
-  --bg-main: #11142b;
-  --bg-panel: #181c3b;
-  --bg-panel-dark: #12152e;
-  --bg-input: #0c0e20;
+  /* SNES / Final Fantasy VI Deep Crystal Palette */
+  --bg-deep: #050714;
+  --bg-main: #0a0e27;
+  --bg-panel: #10163a;
+  --bg-panel-gradient: linear-gradient(180deg, #161f52 0%, #0c112e 100%);
+  --bg-panel-dark: #080b1e;
+  --bg-panel-card: linear-gradient(180deg, #182258 0%, #0e1436 100%);
 
-  --border-gold: #f59e0b;
-  --border-gold-light: #fcd34d;
-  --border-gold-dark: #b45309;
-  --border-blue: #3b82f6;
-  --border-base-blue: #0052ff;
+  /* Royal Gold & Trim */
+  --gold-primary: #ffd700;
+  --gold-light: #fff275;
+  --gold-dark: #b8860b;
+  --border-gold-ornate: #eab308;
+  --border-snes-blue: #3b5bdb;
 
-  --text-main: #f8fafc;
-  --text-secondary: #cbd5e1;
-  --text-muted: #94a3b8;
-  --text-gold: #fbbf24;
-  --text-cyan: #34d399;
+  /* Vibrant RPG Palette */
+  --text-pure: #ffffff;
+  --text-main: #f1f5f9;
+  --text-gold: #fde047;
+  --text-cyan: #38ef7d;
   --text-blue: #60a5fa;
-  --text-danger: #f87171;
+  --text-danger: #ff4d4d;
   --text-purple: #c084fc;
+  --text-dim: #94a3b8;
 
-  /* Rarity Colors */
+  /* Rarity Glows */
   --rarity-common: #94a3b8;
-  --rarity-rare: #60a5fa;
+  --rarity-rare: #38bdf8;
   --rarity-epic: #c084fc;
   --rarity-legendary: #fbbf24;
 
-  /* Bars */
-  --hp-bar: #ef4444;
-  --hp-bar-bg: #450a0a;
-  --mp-bar: #3b82f6;
-  --mp-bar-bg: #172554;
-  --xp-bar: #10b981;
-  --xp-bar-bg: #064e3b;
+  /* Meters */
+  --hp-red: #ef4444;
+  --mp-blue: #3b82f6;
+  --xp-green: #10b981;
 
-  /* Pixel Shadows */
-  --pixel-shadow-sm: 2px 2px 0px rgba(0, 0, 0, 0.6);
-  --pixel-shadow-md: 4px 4px 0px rgba(0, 0, 0, 0.7);
-  --pixel-shadow-lg: 6px 6px 0px rgba(0, 0, 0, 0.8);
-  --pixel-shadow-gold: 4px 4px 0px #b45309;
+  /* Authentic Retro Typography:
+     - Titles: Press Start 2P (Big, bold arcade style)
+     - Headers & Labels: Silkscreen (Clean geometric pixel art font)
+     - Dialogue, Descriptions & Numbers: VT323 (Crisp retro JRPG terminal font, zero blur, large & legible)
+  */
+  --font-title: 'Press Start 2P', cursive;
+  --font-pixel: 'Silkscreen', monospace;
+  --font-dialogue: 'VT323', monospace;
 
-  /* Hybrid Typography: Retro Arcade for Titles, Clean Modern for Legibility */
-  --font-retro: 'Press Start 2P', cursive, monospace;
-  --font-ui: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  /* Retro Pixel Shadows */
+  --pixel-shadow: 3px 3px 0px #000000;
+  --gold-glow: 0 0 16px rgba(251, 191, 36, 0.4);
 }
 
 * {
@@ -58,17 +60,31 @@
 
 body {
   background-color: var(--bg-deep);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(30, 58, 138, 0.25) 0%, transparent 60%),
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 32px 32px, 32px 32px;
   color: var(--text-main);
-  font-family: var(--font-ui);
-  font-size: 14px;
-  line-height: 1.6;
+  font-family: var(--font-pixel);
+  font-size: 13px;
+  line-height: 1.5;
   min-height: 100vh;
   overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-/* CRT Scanlines Overlay (DISABLED BY DEFAULT TO PREVENT EYE STRAIN) */
+/* Subtle Retro Vignette */
+.vignette {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9998;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.75);
+}
+
 .scanlines {
   display: none;
   pointer-events: none;
@@ -78,22 +94,6 @@ body {
   width: 100vw;
   height: 100vh;
   z-index: 9999;
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.25) 50%
-  );
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
   background-size: 100% 4px;
-  opacity: 0.35;
-}
-
-/* Vignette (Very subtle) */
-.vignette {
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9998;
-  box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.5);
 }
