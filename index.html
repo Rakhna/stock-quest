@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stock Quest - Pixel Art RPG Trading on Base</title>
-  <meta name="description" content="Gamified RPG Trading Dashboard for Coinbase Tokenized Stocks on Base Network. Roll D20, earn XP on wins and losses, and level up your portfolio.">
+  <title>Stock Quest - 16-Bit Retro RPG Trading on Base</title>
+  <meta name="description" content="Gamified 16-bit Retro RPG Trading Dashboard for Coinbase Tokenized Stocks on Base Network. Level up your portfolio, equip legendary stocks, and gain XP on every market move.">
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/screens.css">
@@ -21,14 +21,14 @@
   <!-- Persistent Top Navigation Bar -->
   <header class="top-nav">
     <div class="nav-brand">
-      <img src="assets/d20.jpg" alt="Stock Quest D20" class="nav-logo-icon">
+      <img src="assets/d20.jpg" alt="Stock Quest Rune" class="nav-logo-icon">
       <span class="nav-title">STOCK QUEST</span>
       <span class="nav-network-tag">BASE L2</span>
     </div>
 
     <nav class="nav-links">
       <button class="nav-btn" data-screen="title">TITLE</button>
-      <button class="nav-btn active" data-screen="character">CHARACTER</button>
+      <button class="nav-btn active" data-screen="character">HERO</button>
       <button class="nav-btn" data-screen="inventory">INVENTORY</button>
       <button class="nav-btn" data-screen="market">MARKET</button>
       <button class="nav-btn" data-screen="quests">QUESTS</button>
@@ -47,18 +47,18 @@
   <main>
     <section id="screen-title" class="screen">
       <div class="title-card-hero rpg-frame">
-        <img src="assets/title.jpg" alt="Stock Quest 8-bit Banner" class="title-banner-img">
+        <img src="assets/title.jpg" alt="Stock Quest 16-bit Banner" class="title-banner-img">
       </div>
 
       <p class="title-tagline">
-        GAMIFIED RPG TRADING FOR COINBASE TOKENIZED STOCKS ON BASE NETWORK.
-        ROLL THE D20 ON EVERY TRADE. GAIN XP THROUGH VICTORIES AND LESSONS LEARNED.
+        GAMIFIED 16-BIT RETRO RPG FOR COINBASE TOKENIZED STOCKS ON BASE.
+        EQUIP STOCKS AS GEAR, LEVEL UP YOUR ATTRIBUTES, AND GAIN XP ON VICTORIES AND DEFENSIVE MOVES.
       </p>
 
       <div class="title-action-box">
         <div class="press-start-anim">► PRESS START BUTTON ◄</div>
         <button id="btn-press-start" class="pixel-btn btn-green" style="font-size:12px; padding: 14px 28px;">
-          ENTER THE DUNGEON (CONNECT WALLET)
+          ENTER THE TAVERN (CONNECT WALLET)
         </button>
         <div style="font-size:8px; color:var(--text-muted); margin-top:8px;">
           CONNECTED: 0x7F2a...Base • BUILDER QUEST EDITION
@@ -66,14 +66,14 @@
       </div>
     </section>
 
-    <!-- ================= SCREEN 2: CHARACTER SHEET (HUB) ================= -->
+    <!-- ================= SCREEN 2: HERO CHARACTER SHEET (HUB) ================= -->
     <section id="screen-character" class="screen active">
       <div class="char-layout">
         
         <!-- Left Column: Hero Sprite & Meters -->
         <div class="rpg-frame">
           <div class="rpg-header">
-            <span>ADVENTURER</span>
+            <span>HERO STATUS</span>
             <span class="badge-rarity epic" id="char-level-badge">LEVEL 1</span>
           </div>
 
@@ -115,12 +115,12 @@
 
           <div style="margin-top:16px;">
             <button class="pixel-btn btn-blue sm" id="btn-roll-solo-dice" style="width:100%;">
-              ROLL D20 DIVINATION (+XP)
+              ACTIVATE MARKET INSIGHT (+XP)
             </button>
           </div>
         </div>
 
-        <!-- Right Column: D&D Ability Scores & Overview -->
+        <!-- Right Column: Hero Attributes & Overview -->
         <div>
           <!-- Financial Overview Cards -->
           <div class="overview-grid">
@@ -133,29 +133,29 @@
               <div class="overview-stat-val" id="overview-holdings-count">3 Assets</div>
             </div>
             <div class="overview-stat-card">
-              <div class="overview-stat-label">DIVERSIFICATION</div>
+              <div class="overview-stat-label">SECTORS DIVERSIFIED</div>
               <div class="overview-stat-val" id="overview-sectors-count" style="color:var(--text-cyan);">3 Sectors</div>
             </div>
           </div>
 
-          <!-- D&D Ability Scores -->
+          <!-- Hero Attributes -->
           <div class="rpg-frame">
             <div class="rpg-header">
-              <span>D&D ABILITY SCORES (TRADING ATTRIBUTES)</span>
+              <span>HERO ATTRIBUTES (RPG TRADING STATS)</span>
               <span style="font-size:8px; color:var(--text-muted);">BASE L2 RULES</span>
             </div>
             <p style="font-size:8px; color:#94a3b8; margin-bottom:12px; line-height:1.5;">
-              Each attribute impacts your trading checks. Wisdom saves protect against steep drawdowns. Strength boosts alpha. Intelligence grants diversification bonuses.
+              Your hero attributes reflect your trading discipline. Attack drives profit harvesting. Defense cushions against market drawdowns. Discipline rewards cutting losses quickly.
             </p>
             <div class="dnd-stats-grid" id="dnd-stats-container">
               <!-- Dynamically populated by JS -->
             </div>
           </div>
 
-          <!-- Combat & D20 Dungeon Roll Log -->
+          <!-- Adventure & Battle Log -->
           <div class="rpg-frame dark" style="margin-top:16px;">
             <div class="rpg-header">
-              <span>DUNGEON ROLL & COMBAT LOG</span>
+              <span>ADVENTURE & BATTLE LOG</span>
               <span style="font-size:8px; color:var(--text-cyan);">LIVE FEED</span>
             </div>
             <div class="combat-log-container" id="combat-log-content">
@@ -172,11 +172,11 @@
     <section id="screen-inventory" class="screen">
       <div class="rpg-frame" style="margin-bottom:20px;">
         <div class="rpg-header">
-          <span>TOKENIZED STOCKS INVENTORY</span>
+          <span>EQUIPMENT & STOCKS INVENTORY</span>
           <span style="font-size:9px; color:var(--text-gold);">COINBASE ASSETS ON BASE</span>
         </div>
         <p style="font-size:9px; color:#cbd5e1; line-height:1.6;">
-          Your on-chain stock portfolio represented as RPG equipment. Sell positions to trigger exit resolution rolls: lock in profit XP or practice disciplined stop-loss saves!
+          Your on-chain stock portfolio treated as equipped battle gear. Sell positions to lock in harvest XP or execute defensive parries with disciplined stop-losses!
         </p>
       </div>
 
@@ -199,7 +199,7 @@
           <div class="npc-dialog-box">
             <div class="npc-dialog-title">Master Barnaby says:</div>
             <div class="npc-dialog-text">
-              "Greetings, traveler! Looking for Coinbase Tokenized Stocks on Base? Every purchase triggers a D20 roll: Natural 20s grant 5% discounts and massive XP, while tough rolls build your survival fortitude!"
+              "Welcome, adventurer! Browse my finest Coinbase Tokenized Stocks on Base. Each order triggers an action resolution check: Critical Hits grant 5% arbitrage discounts, and facing volatility builds your hero fortitude!"
               <span class="blinking-cursor"></span>
             </div>
           </div>
@@ -207,7 +207,7 @@
           <div style="font-size:8px; color:var(--text-muted); line-height:1.6;">
             • Instant settlement on Base L2<br>
             • Backed 1:1 by real stock shares<br>
-            • Earn D&D trading XP every roll
+            • Earn Hero XP on every order
           </div>
         </div>
 
@@ -236,7 +236,7 @@
           <span style="font-size:9px; color:var(--text-cyan);">ACTIVE BOUNTIES</span>
         </div>
         <p style="font-size:9px; color:#cbd5e1; line-height:1.6;">
-          Complete tactical trading objectives to earn gold, unlock rare achievements, and ascend the Base Network leaderboard!
+          Complete tactical trading objectives to earn gold, unlock rare achievements, and level up your hero on Base Network!
         </p>
       </div>
 
@@ -257,8 +257,8 @@
           <thead>
             <tr>
               <th>RANK</th>
-              <th>ADVENTURER</th>
-              <th>RPG CLASS</th>
+              <th>HERO</th>
+              <th>CLASS</th>
               <th>LEVEL</th>
               <th style="text-align:right;">NET WORTH (USD)</th>
               <th style="text-align:right;">WIN RATE</th>
@@ -272,17 +272,17 @@
     </section>
   </main>
 
-  <!-- ================= D20 TRADING & EXECUTION MODAL ================= -->
+  <!-- ================= ORDER EXECUTION MODAL ================= -->
   <div id="buy-modal" class="modal-backdrop hidden">
     <div class="modal-card rpg-frame glow-gold">
       <div class="rpg-header">
-        <span>ON-CHAIN EXECUTION CHECK</span>
+        <span>ACTION RESOLUTION CHECK</span>
         <button id="modal-btn-cancel" class="pixel-btn sm btn-danger">X</button>
       </div>
 
       <div style="text-align:center; margin: 12px 0;">
         <div class="d20-dice-wrapper" id="modal-d20-dice">
-          <img src="assets/d20.jpg" alt="D20 Dice" class="d20-dice-img">
+          <img src="assets/d20.jpg" alt="Rune of Fortune" class="d20-dice-img">
         </div>
       </div>
 
@@ -311,7 +311,7 @@
       </div>
 
       <button id="modal-btn-execute" class="pixel-btn btn-green" style="width:100%; font-size:10px;">
-        ROLL D20 & EXECUTE ON BASE
+        EXECUTE ORDER ON BASE
       </button>
     </div>
   </div>

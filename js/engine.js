@@ -1,4 +1,4 @@
-// Stock Quest - D&D Game & Trading Engine
+// Stock Quest - 16-Bit Retro RPG Trading Engine
 
 class StockQuestEngine {
   constructor() {
@@ -50,13 +50,14 @@ class StockQuestEngine {
       this.player.xp -= this.player.maxXP;
       this.player.level += 1;
       this.player.maxXP = Math.floor(this.player.maxXP * 1.4);
-      this.player.maxHP += 15;
+      this.player.maxHP += 20;
       this.player.hp = this.player.maxHP;
       
-      // Upgrade D&D stats
-      this.player.stats.str.val += 1;
-      this.player.stats.wis.val += 1;
-      this.player.stats.con.val += 1;
+      // Upgrade RPG Hero Stats
+      this.player.stats.atk.val += 2;
+      this.player.stats.def.val += 2;
+      this.player.stats.disc.val += 1;
+      this.player.stats.int.val += 1;
       
       leveledUp = true;
     }
@@ -64,8 +65,7 @@ class StockQuestEngine {
     if (leveledUp) {
       if (window.retroAudio) window.retroAudio.playLevelUp();
       this.logAction(
-        `LEVEL UP! You reached Level ${this.player.level}! Stats increased!`,
-        20,
+        `LEVEL UP! You reached Level ${this.player.level}! Hero stats increased!`,
         "crit-hit"
       );
     }
@@ -74,12 +74,12 @@ class StockQuestEngine {
     return { leveledUp, newLevel: this.player.level, xpAdded: amount, reason };
   }
 
-  // D&D d20 Dice Roll Mechanism for Trading
-  rollD20() {
+  // Action / Strike Check (1-20 RNG)
+  rollStrike() {
     return Math.floor(Math.random() * 20) + 1;
   }
 
-  // Execute a Buy Order with D&D outcome resolution
+  // Execute a Buy Order with RPG Action Resolution
   executeBuy(ticker, shares, customRoll = null) {
     const stock = this.stocks.find(s => s.ticker === ticker);
     if (!stock) return { success: false, msg: "Stock not found" };
@@ -89,10 +89,9 @@ class StockQuestEngine {
       return { success: false, msg: "Insufficient USD Cash!" };
     }
 
-    // Roll d20 (or use provided roll for interactive modal)
-    const naturalRoll = customRoll !== null ? customRoll : this.rollD20();
-    const wisMod = parseInt(this.player.stats.wis.mod, 10) || 0;
-    const totalRoll = naturalRoll + wisMod;
+    const strikeRoll = customRoll !== null ? customRoll : this.rollStrike();
+    const luckMod = parseInt(this.player.stats.lck.mod, 10) || 0;
+    const totalScore = strikeRoll + luckMod;
 
     let resultCategory = "";
     let xpAward = 0;
@@ -100,47 +99,47 @@ class StockQuestEngine {
     let logType = "trade";
     let message = "";
 
-    if (naturalRoll === 20) {
-      // Natural 20 - Critical Strike
-      resultCategory = "CRITICAL SUCCESS (NAT 20)";
+    if (strikeRoll === 20) {
+      // Critical Hit
+      resultCategory = "CRITICAL HIT!";
       priceModifier = 0.95; // 5% arbitrage discount
       xpAward = 300;
       logType = "crit-hit";
-      message = "Flawless on-chain routing! 5% arbitrage discount and massive XP earned!";
+      message = "Flawless on-chain execution! 5% arbitrage discount and massive XP earned!";
       if (window.retroAudio) window.retroAudio.playCritSuccess();
       this.checkQuestTrigger("natural_20");
-    } else if (totalRoll >= 16) {
-      // Great Success
-      resultCategory = "BULLISH BREAKOUT (16-19)";
+    } else if (totalScore >= 16) {
+      // Great Strike
+      resultCategory = "GREAT STRIKE!";
       priceModifier = 0.98; // 2% discount
       xpAward = 180;
       logType = "trade";
-      message = "Great timing. Clean entry with zero slippage.";
+      message = "Optimal entry. Clean routing with zero slippage.";
       if (window.retroAudio) window.retroAudio.playCoin();
-    } else if (totalRoll >= 10) {
-      // Standard Success
-      resultCategory = "STEADY ORDER EXECUTION (10-15)";
+    } else if (totalScore >= 10) {
+      // Solid Hit
+      resultCategory = "SOLID HIT";
       priceModifier = 1.0;
       xpAward = 100;
       logType = "trade";
-      message = "Filled at standard market quote.";
+      message = "Order executed cleanly at market price.";
       if (window.retroAudio) window.retroAudio.playCoin();
-    } else if (naturalRoll === 1) {
-      // Natural 1 - Critical Fumble
-      resultCategory = "CRITICAL FUMBLE (NAT 1)";
+    } else if (strikeRoll === 1) {
+      // Critical Miss / Volatility Dip
+      resultCategory = "CRITICAL MISS (VOLATILITY SPIKE)";
       priceModifier = 1.05; // 5% slippage penalty
-      xpAward = 150; // Hard Knocks Survival XP: learning from failure awards XP!
+      xpAward = 150; // Survival XP
       logType = "crit-fail";
-      message = "Flash dip & MEV sandwich! Paid 5% slippage, BUT gained +150 Survival XP from the ordeal!";
+      message = "Flash volatility dip & MEV friction! +150 Survival XP awarded for enduring the battle!";
       if (window.retroAudio) window.retroAudio.playCritFail();
       this.checkQuestTrigger("learn_from_loss");
     } else {
-      // Bad Roll (2-9)
-      resultCategory = "SLIPPAGE & DRAWDOWN (2-9)";
+      // Glancing Blow (Slippage)
+      resultCategory = "GLANCING BLOW (SLIPPAGE)";
       priceModifier = 1.02;
-      xpAward = 80; // Battle Scar XP: learning risk management
+      xpAward = 80; // Battle experience
       logType = "trade";
-      message = "Sub-optimal entry. +80 Battle Scar XP awarded for facing adversity.";
+      message = "Faced minor market friction. +80 Battle Experience XP gained.";
       if (window.retroAudio) window.retroAudio.playCoin();
       this.checkQuestTrigger("learn_from_loss");
     }
@@ -169,8 +168,7 @@ class StockQuestEngine {
 
     // Log Action
     this.logAction(
-      `Bought ${shares} ${ticker} (d20: ${naturalRoll} ${wisMod >= 0 ? '+' + wisMod : wisMod}). ${resultCategory}. +${xpAward} XP`,
-      naturalRoll,
+      `Bought ${shares} ${ticker} [${resultCategory}]. +${xpAward} XP`,
       logType
     );
 
@@ -183,8 +181,7 @@ class StockQuestEngine {
 
     return {
       success: true,
-      naturalRoll,
-      totalRoll,
+      strikeRoll,
       resultCategory,
       xpAward,
       priceModifier,
@@ -193,7 +190,7 @@ class StockQuestEngine {
     };
   }
 
-  // Execute a Sell Order with D&D Outcome Resolution
+  // Execute a Sell Order with RPG Outcome Resolution
   executeSell(ticker, sharesToSell) {
     const holdingIndex = this.player.holdings.findIndex(h => h.ticker === ticker);
     if (holdingIndex === -1) return { success: false, msg: "Stock not held" };
@@ -207,30 +204,28 @@ class StockQuestEngine {
     const profitUSD = saleRevenue - costBasis;
     const profitPercent = ((saleRevenue - costBasis) / costBasis) * 100;
 
-    // Roll d20 for Exit Execution
-    const roll = this.rollD20();
     let xpAward = 0;
     let logType = "trade";
     let message = "";
 
     if (profitUSD > 0) {
-      // Profitable trade: XP scaled by profit percentage
+      // Profitable trade: Harvest bonus
       xpAward = Math.min(400, Math.floor(100 + profitPercent * 15));
-      message = `Profitable Harvest! +$${profitUSD.toFixed(2)} (${profitPercent.toFixed(1)}%). +${xpAward} XP!`;
+      message = `VICTORY HARVEST! +$${profitUSD.toFixed(2)} (+${profitPercent.toFixed(1)}%). +${xpAward} XP!`;
       logType = "xp-gain";
       if (window.retroAudio) window.retroAudio.playCoin();
     } else {
-      // Loss: Test of Wisdom and Stop-Loss Discipline
+      // Controlled Loss vs Heavy Loss
       if (profitPercent >= -5.0) {
-        // Cut loss quickly (Wisdom Save successful!)
+        // Defensive Parry / Disciplined Stop-Loss
         xpAward = 140;
-        message = `Tactical Retreat! Loss restricted to ${profitPercent.toFixed(1)}%. +140 Wisdom Save XP!`;
+        message = `DEFENSIVE PARRY! Loss contained to ${profitPercent.toFixed(1)}%. +140 Discipline XP!`;
         logType = "trade";
         this.checkQuestTrigger("disciplined_stop_loss");
       } else {
-        // Heavy loss: Battle Scar survival XP
+        // Heavy Drawdown
         xpAward = 75;
-        message = `Tough Lesson in Volatility (${profitPercent.toFixed(1)}%). +75 Survival XP.`;
+        message = `SURVIVED DRAWDOWN (${profitPercent.toFixed(1)}%). +75 Battle Experience XP.`;
         logType = "crit-fail";
         this.checkQuestTrigger("learn_from_loss");
       }
@@ -243,10 +238,9 @@ class StockQuestEngine {
       this.player.holdings.splice(holdingIndex, 1);
     }
 
-    this.awardXP(xpAward, `Exit trade ${ticker}`);
+    this.awardXP(xpAward, `Sold ${ticker}`);
     this.logAction(
-      `Sold ${sharesToSell} ${ticker} (d20: ${roll}). ${message}`,
-      roll,
+      `Sold ${sharesToSell} ${ticker}. ${message}`,
       logType
     );
 
@@ -254,7 +248,6 @@ class StockQuestEngine {
 
     return {
       success: true,
-      roll,
       profitUSD,
       profitPercent,
       xpAward,
@@ -274,7 +267,6 @@ class StockQuestEngine {
     if (window.retroAudio) window.retroAudio.playCoin();
     this.logAction(
       `QUEST COMPLETED: ${quest.title}! +${quest.rewardXP} XP, +$${quest.rewardGold} USD`,
-      20,
       "crit-hit"
     );
 
@@ -282,7 +274,7 @@ class StockQuestEngine {
     return true;
   }
 
-  // Evaluate and update quest statuses
+  // Evaluate quest statuses
   checkQuestTrigger(triggerType) {
     this.quests.forEach(quest => {
       if (quest.status !== "in_progress") return;
@@ -306,12 +298,11 @@ class StockQuestEngine {
   }
 
   // Append a message to the internal history log
-  logAction(text, roll = null, type = "trade") {
+  logAction(text, type = "trade") {
     const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     this.player.rollHistory.unshift({
       timestamp: time,
       action: text,
-      roll: roll,
       type: type
     });
     if (this.player.rollHistory.length > 25) {
@@ -319,15 +310,14 @@ class StockQuestEngine {
     }
   }
 
-  // Random Market Fluctuations (Simulating on-chain block price changes)
+  // Simulated market price ticks on Base L2
   tickMarket() {
     this.stocks.forEach(stock => {
-      const deltaPercent = (Math.random() * 3.6) - 1.7; // between -1.7% and +1.9%
+      const deltaPercent = (Math.random() * 3.6) - 1.7; // -1.7% to +1.9%
       stock.price = Math.max(1, +(stock.price * (1 + deltaPercent / 100)).toFixed(2));
       stock.change24h = +(stock.change24h + (deltaPercent * 0.2)).toFixed(2);
     });
 
-    // Check portfolio value quest
     if (this.getPortfolioValue() >= 2500) {
       const q7 = this.quests.find(q => q.id === "q7");
       if (q7 && q7.status === "in_progress") {

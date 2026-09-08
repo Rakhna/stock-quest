@@ -1,4 +1,4 @@
-// Stock Quest - App Controller & UI Orchestrator
+// Stock Quest - App Controller & UI Orchestrator (16-Bit Retro RPG)
 
 document.addEventListener("DOMContentLoaded", () => {
   const engine = window.stockQuestEngine;
@@ -129,16 +129,16 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("overview-holdings-count").textContent = `${p.holdings.length} Assets`;
     document.getElementById("overview-sectors-count").textContent = `${engine.getSectorsCount()} Sectors`;
 
-    // D&D Ability Scores
+    // RPG Hero Attributes
     const statsGrid = document.getElementById("dnd-stats-container");
     if (statsGrid) {
       statsGrid.innerHTML = Object.keys(p.stats).map(key => {
         const s = p.stats[key];
         return `
           <div class="dnd-stat-box">
-            <div class="dnd-stat-name">${s.label} (${key})</div>
+            <div class="dnd-stat-name">${s.label}</div>
             <div class="dnd-stat-value">${s.val}</div>
-            <div class="dnd-stat-mod">MOD: ${s.mod}</div>
+            <div class="dnd-stat-mod">BONUS: ${s.mod}</div>
             <div class="dnd-stat-desc">${s.desc}</div>
           </div>
         `;
@@ -154,8 +154,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (engine.player.holdings.length === 0) {
       container.innerHTML = `
         <div class="rpg-frame dark" style="grid-column: 1 / -1; text-align: center; padding: 40px;">
-          <p style="color: var(--text-muted); margin-bottom: 16px;">Your inventory is empty! Visit the Market to acquire tokenized stocks.</p>
-          <button class="pixel-btn btn-blue" onclick="document.querySelector('[data-screen=market]').click()">Visit Shopkeeper</button>
+          <p style="color: var(--text-muted); margin-bottom: 16px;">Your equipment inventory is empty! Visit the Tavern Merchant to acquire tokenized stocks.</p>
+          <button class="pixel-btn btn-blue" onclick="document.querySelector('[data-screen=market]').click()">Visit Tavern Merchant</button>
         </div>
       `;
       return;
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
           </div>
 
           <div class="stock-rpg-stat-row">
-            <span>SHARES: <b>${h.shares.toFixed(2)}</b></span>
+            <span>EQUIPPED: <b>${h.shares.toFixed(2)} Shares</b></span>
             <span>VALUE: <b>$${currentVal.toFixed(2)}</b></span>
           </div>
 
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <div style="margin-top:auto; padding-top:10px; display:flex; gap:8px;">
             <button class="pixel-btn btn-danger sm btn-sell-action" data-ticker="${stock.ticker}" data-shares="${h.shares}" style="flex:1;">
-              SELL (D20 RESOLUTION)
+              SELL / UNEQUIP (RESOLVE ACTION)
             </button>
           </div>
         </div>
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const result = engine.executeSell(ticker, shares);
     if (result.success) {
       showToast(
-        `Sold ${ticker}!`,
+        `Order Settled: ${ticker}!`,
         `${result.message} (Earned +${result.xpAward} XP)`,
         result.profitUSD >= 0 ? "xp" : "fail"
       );
@@ -279,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           <div style="margin-top:auto; padding-top:8px;">
             <button class="pixel-btn btn-green sm btn-open-buy-modal" data-ticker="${stock.ticker}" style="width:100%;">
-              BUY (ROLL D20)
+              BUY (EXECUTE ORDER)
             </button>
           </div>
         </div>
@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // --- D20 Trading Modal Logic ---
+  // --- Action Resolution Modal Logic ---
   let selectedBuyTicker = null;
   const buyModal = document.getElementById("buy-modal");
   const d20DiceWrapper = document.getElementById("modal-d20-dice");
@@ -327,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateModalTotal();
 
     modalRollResult.style.display = "none";
-    btnExecuteBuy.textContent = "ROLL D20 & EXECUTE";
+    btnExecuteBuy.textContent = "EXECUTE ORDER ON BASE";
     btnExecuteBuy.disabled = false;
 
     buyModal.classList.remove("hidden");
@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
       btnExecuteBuy.disabled = true;
       audio.playDiceRoll();
 
-      // Shake animation on D20
+      // Shake animation on Rune of Fortune
       d20DiceWrapper.classList.add("d20-shake");
 
       setTimeout(() => {
@@ -374,13 +374,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const rollResult = engine.executeBuy(selectedBuyTicker, qty);
 
         modalRollResult.style.display = "block";
-        modalRollResult.className = `rpg-frame dark ${rollResult.naturalRoll === 20 ? 'glow-gold' : ''}`;
+        modalRollResult.className = `rpg-frame dark ${rollResult.strikeRoll === 20 ? 'glow-gold' : ''}`;
         
         modalRollText.innerHTML = `
           <div style="font-size:14px; color:var(--text-gold); margin-bottom:8px;">
-            ${rollResult.naturalRoll === 20 ? 'NATURAL 20! CRITICAL HIT!' : 
-              rollResult.naturalRoll === 1 ? 'NATURAL 1! CRITICAL FUMBLE!' : 
-              'D20 ROLL: ' + rollResult.naturalRoll}
+            ${rollResult.resultCategory}
           </div>
           <div style="font-size:9px; color:#e2e8f0; line-height:1.6;">${rollResult.message}</div>
           <div style="font-size:10px; color:var(--text-cyan); margin-top:8px; font-weight:bold;">
@@ -391,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast(
           `${rollResult.resultCategory}!`,
           `+${rollResult.xpAward} XP gained on ${selectedBuyTicker}`,
-          rollResult.naturalRoll === 20 ? 'crit' : rollResult.naturalRoll === 1 ? 'fail' : 'xp'
+          rollResult.strikeRoll === 20 ? 'crit' : rollResult.strikeRoll === 1 ? 'fail' : 'xp'
         );
 
         btnExecuteBuy.textContent = "DONE (RETURN TO MARKET)";
@@ -473,7 +471,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   }
 
-  // Combat / Roll Log Terminal
+  // Adventure & Battle Log
   function renderLog() {
     const logEl = document.getElementById("combat-log-content");
     if (!logEl) return;
@@ -488,32 +486,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   }
 
-  // Quick Roll D20 Button in Character Screen for fun
+  // Quick Action in Character Screen: Test Luck & Market Insight
   const btnDiceSolo = document.getElementById("btn-roll-solo-dice");
   if (btnDiceSolo) {
     btnDiceSolo.addEventListener("click", () => {
       audio.playDiceRoll();
-      const roll = engine.rollD20();
+      const roll = engine.rollStrike();
       let xp = 0;
       let msg = "";
 
       if (roll === 20) {
         xp = 150;
-        msg = "Natural 20! Critical Insight into Base L2 liquidity pools! +150 XP";
+        msg = "CRITICAL INSIGHT! Discovered arbitrage opportunity on Base L2! +150 XP";
         audio.playCritSuccess();
       } else if (roll === 1) {
         xp = 50;
-        msg = "Natural 1! Fumbled chart analysis! +50 Survival Experience!";
+        msg = "VOLATILITY SPIKE! Tested risk resilience! +50 Survival XP!";
         audio.playCritFail();
       } else {
         xp = roll * 5;
-        msg = `Rolled ${roll}! Practiced market reading: +${xp} XP`;
+        msg = `MARKET READING: Honed trading skills! +${xp} XP`;
         audio.playCoin();
       }
 
-      engine.awardXP(xp, "D20 Divination");
-      engine.logAction(msg, roll, roll === 20 ? 'crit-hit' : roll === 1 ? 'crit-fail' : 'xp-gain');
-      showToast(`D20 Divination: ${roll}`, msg, roll === 20 ? 'crit' : roll === 1 ? 'fail' : 'xp');
+      engine.awardXP(xp, "Market Insight");
+      engine.logAction(msg, roll === 20 ? 'crit-hit' : roll === 1 ? 'crit-fail' : 'xp-gain');
+      showToast("Market Action", msg, roll === 20 ? 'crit' : roll === 1 ? 'fail' : 'xp');
     });
   }
 
